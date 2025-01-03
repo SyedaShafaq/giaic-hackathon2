@@ -2,4 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
- 
+ /* Swiper dot indicator customization */
+.swiper-pagination-bullet {
+    @apply bg-gray-300 opacity-100 w-4 h-4 mx-1 transition-all;
+  }
+  
+  .swiper-pagination-bullet-active {
+    @apply bg-yellow-600 scale-110;
+  }
+  

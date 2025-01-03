@@ -11,7 +11,8 @@ const config: Config = {
   	extend: {
   		colors: {
   			  primary: '#B88E2F',
-			 background:'#ffffff'
+			 background:'#ffffff',
+			 beige: "#f8f3ec",
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

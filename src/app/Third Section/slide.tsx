@@ -1,94 +1,80 @@
- "use client";
-import { type CarouselApi } from "@/components/ui/carousel";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import AutoPlay from "embla-carousel-autoplay";
- 
+"use client";
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 import Image from "next/image";
- 
-import { useEffect, useState } from "react";
- 
 
-export function ImageSider() {
-  const [api] = useState<CarouselApi>();
-  const [,setCurrent] = useState(0);
-  const [, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
-
+const CarouselSlider = () => {
   return (
-    <Carousel
-      plugins={[AutoPlay({ delay: 2000 })]}
-      className="lg:w-[404px] lg:h-[582px] lg:visible xl:visible md:visible invisible lg-left-[0px] left-[65px] "
-    >
-      <CarouselContent>
-        <CarouselItem>
-          <div className="flex justify-between items-center">
-            <div className="lg:w-[500px] w-[300px] h-[545px] flex ">
-              
+    <section className="flex flex-col md:flex-row items-center bg-background p-8">
+      {/* Swiper Slider */}
+      <div className="w-[900px]">
+        <Swiper
+          modules={[Pagination]}
+          spaceBetween={30}
+          slidesPerView={1}
+          pagination={{
+            clickable: true,
+          }}
+          loop={true}
+          className="rounded-lg"
+        >
+          {/* Slide 1 */}
+          <SwiperSlide>
+            <div className="relative">
               <Image
-                className="lg:w-[404px] lg:h-[584px] w-full h-screen"
                 src="/images/carousel1.png"
-                alt=""
-                width={392}
-                height={350}
+                alt="Room 1"
+                className="w-[500px] h-screen rounded-lg"
+                width={400}
+                height={400}
               />
+              <div className="absolute bottom-4 px-2 left-4 text-primary bg-white">
+                <h3 className="text-2xl font-bold">Inner Peace</h3>
+                <span className="text-lg">01 — Bed Room</span>
+              </div>
             </div>
-          </div>
-        </CarouselItem>
-        <CarouselItem>
-          <div className="flex justify-between items-center">
-            <div className="bg-black lg:w-[900px] w-[400px] h-[345px] flex ">
-              
+          </SwiperSlide>
+
+          {/* Slide 2 */}
+          <SwiperSlide>
+            <div className="relative">
               <Image
-                 className="lg:w-[404px] lg:h-[584px] w-full h-screen"
                 src="/images/carousel2.png"
-                alt=""
-                width={592}
-                height={650}
+                alt="Room 2"
+                className="w-[500px] h-screen rounded-lg"
+                width={400}
+                height={400}
               />
+              <div className="absolute bottom-4 px-2 left-4 text-primary bg-white">
+                <h3 className="text-2xl font-bold">Cozy Corner</h3>
+                <span className="text-lg">02 — Living Room</span>
+              </div>
             </div>
-          </div>
-        </CarouselItem>
-        <CarouselItem>
-          <div className="flex justify-between items-center">
-            <div className="bg-black lg:w-[900px] w-[400px] h-[345px] flex ">
-               
+          </SwiperSlide>
+
+          {/* Slide 3 */}
+          <SwiperSlide>
+            <div className="relative">
               <Image
-                 className="lg:w-[404px] lg:h-[584px] w-full h-screen"
                 src="/images/carousel3.png"
-                alt=""
-                width={592}
-                height={650}
+                alt="Room 3"
+                className="w-[500px] h-screen rounded-lg"
+                width={400}
+                height={400}
               />
+              <div className="absolute bottom-4 px-2 left-4 text-primary bg-white">
+                <h3 className="text-2xl font-bold">Bright Spaces</h3>
+                <span className="text-lg">03 — Dining Area</span>
+              </div>
             </div>
-          </div>
-        </CarouselItem>
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    </section>
   );
-}
+};
 
-
-  
- 
-
- 
+export default CarouselSlider;

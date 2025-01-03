@@ -1,40 +1,71 @@
+ 
+import Link from "next/link";
 import React from "react";
 
-const Footer = () => {
+
+ function Footer() {
   return (
-    <div className="bg-background mx-auto">
-      <div className="lg:w-[1350px] w-[95%] h-[505px] absolute md:top-[4900px] top-[6000px] lg:top-[3200px] bg-background left-[4px]">
-        <div className="flex w-[70%] h-[50%] mx-auto ">
-          <div className="p-5">
-            <h1 className="text-xl font-semibold">Funiro.</h1>
-            <p className="text-lg">400 university Drive Suite 200 Coral Gables</p>
-            <p className="text-lg">Fl 33134 USA</p>
+    <footer className="bg-white text-black border-t relative top-[8500px] md:top-[1000px] border-gray-200">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Brand and Address */}
+          <div>
+            <h2 className="text-lg font-bold">Funiro.</h2>
+            <p className="mt-2 text-gray-500">
+              400 University Drive Suite 200 Coral Gables, <br />
+              FL 33134 USA
+            </p>
           </div>
-          <div className="w-[85px] p-5">
-            <h1 className="mb-5 font-semibold">Links</h1>
-            <ul>
-              <li className="py-2 font-semibold">Home</li>
-              <li className="py-2 font-semibold">Shop</li>
-              <li className="py-2 font-semibold">About</li>
-              <li className="py-2 font-semibold">Contact</li>
+
+          {/* Links */}
+          <div>
+            <h3 className="text-gray-900 uppercase tracking-wider text-sm font-semibold">
+              Links
+            </h3>
+            <ul className="mt-2 space-y-2">
+              <li><Link href="/" className="text-gray-600 hover:text-black">Home</Link></li>
+              <li><Link href="/shop" className="text-gray-600 hover:text-black">Shop</Link></li>
+              <li><Link href="/about" className="text-gray-600 hover:text-black">About</Link></li>
+              <li><Link href="/contact" className="text-gray-600 hover:text-black">Contact</Link></li>
             </ul>
           </div>
-          <div className="w-[215px] p-5">
-            <h1 className="px-3 mb-5 font-semibold">Help</h1>
-            <h2 className="px-3 py-2 font-semibold">Payment Options</h2>
-            <h2 className="px-3 py-2 font-semibold">Returns</h2>
-            <h2 className="px-3 py-2 font-semibold">Privacy Policies</h2>
+
+          {/* Help */}
+          <div>
+            <h3 className="text-gray-900 uppercase tracking-wider text-sm font-semibold">
+              Help
+            </h3>
+            <ul className="mt-2 space-y-2">
+              <li><Link href="/payment-options" className="text-gray-600 hover:text-black">Payment Options</Link></li>
+              <li><Link href="/returns" className="text-gray-600 hover:text-black">Returns</Link></li>
+              <li><Link href="/privacy-policies" className="text-gray-600 hover:text-black">Privacy Policies</Link></li>
+            </ul>
           </div>
-          <div className="w-[25px] p-5 ">
-            <h1 className="mb-5 font-semibold">Newsletter</h1>
-            <input type="Email" placeholder="Enter your Email Address" />
+
+          {/* Newsletter */}
+          <div>
+            <h3 className="text-gray-900 uppercase tracking-wider text-sm font-semibold">
+              Newsletter
+            </h3>
+            <div className="mt-2">
+              <input
+                type="email"
+                placeholder="Enter Your Email Address"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+              />
+              <button className="mt-3 w-full bg-black text-white py-2 rounded-md hover:bg-gray-800">
+                Subscribe
+              </button>
+            </div>
           </div>
         </div>
-        <div className="w-full border-b-2  "></div>
-        <h1 className="text-center mt-2">2023 furino.All right reserved</h1>
-      </div>
-    </div>
-  );
-};
 
-export default Footer;
+        <div className="mt-8 border-t border-gray-200 pt-4 text-center">
+          <p className="text-gray-500">© 2023 Funiro. All rights reserved</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer

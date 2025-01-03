@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Banner() {
   return (
     <div className="flex flex-col lg:flex-row items-center justify-between px-6 py-4 ">
-      <div className="mx-auto realtive top-[-75px]">
+      <div className="mx-auto realtive lg:w-[1440px] w-[95%] lg:h-[812.53px] ">
         <div className="flex items-center relative z-100">
           <Image
             src="/images/heroSectionpic.jpg"
