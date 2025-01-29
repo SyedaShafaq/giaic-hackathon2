@@ -4,29 +4,29 @@ import { FaTrophy, FaShieldAlt, FaShippingFast, FaHeadset } from 'react-icons/fa
 const FeaturesSection: React.FC = () => {
   const features = [
     {
-      icon: <FaTrophy className="text-yellow-500 text-4xl" />,
+      icon: <FaTrophy className="text-black text-4xl" />,
       title: "High Quality",
       description: "crafted from top materials",
     },
     {
-      icon: <FaShieldAlt className="text-green-500 text-4xl" />,
+      icon: <FaShieldAlt className="text-black text-4xl" />,
       title: "Warranty Protection",
       description: "Over 2 years",
     },
     {
-      icon: <FaShippingFast className="text-blue-500 text-4xl" />,
+      icon: <FaShippingFast className="text-black text-4xl" />,
       title: "Free Shipping",
       description: "Order over 150 $",
     },
     {
-      icon: <FaHeadset className="text-red-500 text-4xl" />,
+      icon: <FaHeadset className="text-black text-4xl" />,
       title: "24 / 7 Support",
       description: "Dedicated support",
     },
   ];
 
   return (
-    <div className="bg-beige py-10">
+    <div className="bg-beige py-10 relative top-[100px]">
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-4">
         {features.map((feature, index) => (
           <div

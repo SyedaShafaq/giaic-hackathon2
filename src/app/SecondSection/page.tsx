@@ -1,6 +1,7 @@
 import React from 'react'
 import Cart from './card'
-import ProductGrid from './cart'
+
+ 
 
 const OurProducts = () => {
   return (
@@ -9,7 +10,7 @@ const OurProducts = () => {
 <div className=''>
     <h1 className='text-black text-3xl font-bold text-center'>Our Products</h1>
 </div>
- <ProductGrid/>
+ <Cart/>
 <div className='flex justify-center items-center mt-5'>
 
 <button className="lg:px-9 lg:py-3 font-semibold border-2 border-primary text-black rounded-md hover:bg-primary">

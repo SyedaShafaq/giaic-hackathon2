@@ -1,42 +1,50 @@
- import { defineField , defineType } from "sanity";
- export const ProductDetails = defineType({
-    name:"ProductDetails",
-    title: "Product Details",
+import { defineType } from "sanity"
+
+export const product = defineType({
+    name: "product",
+    title: "Product",
     type: "document",
-    fields:[
-        defineField({
-            name: "name",
-            title: "Product Name",
+    fields: [
+        {
+            name: "title",
+            title: "Title",
+            validation: (rule) => rule.required(),
             type: "string"
         },
-    ),
-    {
-        name: "slug",
-        title: "Slug",
-        type: "slug",
-        options: {
-            source: "name",
-             
+        {
+            name:"description",
+            type:"text",
+            validation: (rule) => rule.required(),
+            title:"Description",
         },
-    },
-
-    {
-        name: "images",
-        title: "Product Image",
-        type: "array",
-        of: [{type: "image"}],
-    },
-    {
-        name: "description",
-        title: "Product Description",
-        type: "string"
-    },
-    {
-        name: "price",
-        title: "Product Price",
-        type: "number"
-    },
-
+        {
+            name: "productImage",
+            type: "image",
+            validation: (rule) => rule.required(),
+            title: "Product Image"
+        },
+        {
+            name: "price",
+            type: "number",
+            validation: (rule) => rule.required(),
+            title: "Price",
+        },
+        {
+            name: "tags",
+            type: "array",
+            title: "Tags",
+            of: [{ type: "string" }]
+        },
+        {
+            name:"dicountPercentage",
+            type:"number",
+            title:"Discount Percentage",
+        },
+        {
+            name:"isNew",
+            type:"boolean",
+            title:"New Badge",
+        }
     ]
 })
         

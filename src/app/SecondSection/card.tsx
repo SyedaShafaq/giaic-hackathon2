@@ -1,4 +1,7 @@
 "use client"
+import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
+import { groq } from 'next-sanity' 
  
  
 import Image from "next/image";
@@ -133,6 +136,7 @@ const data1 = [
 ];
 
 const Cart = () => {
+  
   return (
     <div className="grid grid-cols-1 place-items-center md:grid-cols-4 sm:grid-cols-2 xl:grid-cols-4 lg:grid-col-4 gap-10 lg:gap-x-5 lg:gap-y-8">
       {data1.map((items) => {
