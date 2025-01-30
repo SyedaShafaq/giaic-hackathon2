@@ -143,6 +143,9 @@ export default function ProductPage(): JSX.Element {
           </div>
         </div>
       </div>
+      <div>
+        <ProductPage/>
+      </div>
     </div>
   );
 }

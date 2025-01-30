@@ -42,45 +42,48 @@ const Shop = async () => {
           <div className="grid grid-cols-1 place-items-center md:grid-cols-4 sm:grid-cols-2 xl:grid-cols-4 lg:grid-col-4 gap-10 lg:gap-x-5 lg:gap-y-8">
             {products.map((product: any, index: number) => {
               return (
-                <div className="mt-4">
+                <div className="mt-4 px-4">
                   {/* Product image */}
                   <Image
-                    className="w-[285px] h-[300px] rounded-lg "
+                    className="w-[300px] h-[300px] rounded-lg "
                     src={urlFor(product.productImage).url()}
                     alt={product.title}
                     width={300}
                     height={300}
                   />
                   {/* Product title */}
-                  <h2 className="text-xl font-semibold">{product.title}</h2>
+                  <Link href="/Routes/Store" className="text-xl font-semibold text-center">{product.title}</Link>
                   {/* Product description */}
                   <p className="mt-2 text-sm text-gray-500 line-clamp-3">
                     {product.description}
                   </p>
                   {/* Product price */}
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-1 text-1xl font-semibold text-black">
                     Price: ${product.price}
                   </p>
                   {/*dicountPercentage */}
-                  <p className="text-red-500">
+                  <p className="text-red-500 font-semibold">
                     {product.dicountPercentage}%OFF
                   </p>
                   {/* Product tags */}
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className=" text-sm text-gray-500">
                     Tags: {product.tags.join(", ")}
                   </p>
                   {/** New badge */}
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-1 text-sm text-gray-900">
                     New Badge: {product.isNew ? "Yes" : "No"}
                   </p>
 
                   {/* Add to cart button */}
+                  <div className="text-center mt-3 bg-primary py-2 rounded-lg">
+
                   <Link
-                    href={`/product/${product._id}`}
-                    className="mt-2 w-full px-4 py-2 text-sm font-medium text-primary bg-background rounded-md"
-                  >
+                    href="/Routes/Store"
+                    className="mt-3 text-center w-full px-5 py-3 text-sm font-medium text-white hover:font-semibold rounded-md"
+                    >
                     Add to Cart
                   </Link>
+                    </div>
                 </div>
               )
             })}
