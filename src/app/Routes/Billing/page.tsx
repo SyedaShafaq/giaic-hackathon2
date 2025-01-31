@@ -1,94 +1,140 @@
-"use client";
+ "use client";
 
 import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useCartStore } from "../Store/cart";
-import { useRouter } from "next/navigation";
+import { FaTrash } from "react-icons/fa";
 
-const CheckoutPage = () => {
-  const router = useRouter();
-  const { cart, totalPrice } = useCartStore();
-  const [billingDetails, setBillingDetails] = useState({
-    firstName: "",
-    lastName: "",
-    company: "",
-    country: "",
-    street: "",
-    city: "",
-    province: "",
-    zip: "",
-    phone: "",
-    email: "",
-    additionalInfo: "",
-  });
+type FormValues = {
+  firstName: string;
+  lastName: string;
+  company?: string;
+  country: string;
+  address: string;
+  city: string;
+  province: string;
+  zip: string;
+  phone: string;
+  email: string;
+  additionalInfo?: string;
+  paymentMethod: string;
+};
 
-  const [paymentMethod, setPaymentMethod] = useState("bank");
+export default function CheckoutPage() {
+  const { cart, removeFromCart } = useCartStore();
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const [selectedPayment, setSelectedPayment] = useState("bank_transfer");
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setBillingDetails({ ...billingDetails, [e.target.name]: e.target.value });
-  };
-
-  const handleOrderSubmit = () => {
-    console.log("Order placed:", { billingDetails, paymentMethod, cart });
-    router.push("/order-success");
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log("Order Placed:", data);
   };
 
   return (
-    <div className="container mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
-      <div>
-        <h2 className="text-2xl font-bold mb-6">Billing Details</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <input type="text" name="firstName" placeholder="First Name" className="input" onChange={handleInputChange} />
-          <input type="text" name="lastName" placeholder="Last Name" className="input" onChange={handleInputChange} />
-        </div>
-        <input type="text" name="company" placeholder="Company Name (Optional)" className="input mt-4" onChange={handleInputChange} />
-        <select name="country" className="input mt-4" onChange={handleInputChange}>
-          <option value="">Select Country</option>
-          <option value="Sri Lanka">Sri Lanka</option>
-        </select>
-        <input type="text" name="street" placeholder="Street Address" className="input mt-4" onChange={handleInputChange} />
-        <input type="text" name="city" placeholder="Town / City" className="input mt-4" onChange={handleInputChange} />
-        <input type="text" name="zip" placeholder="ZIP Code" className="input mt-4" onChange={handleInputChange} />
-        <input type="text" name="phone" placeholder="Phone" className="input mt-4" onChange={handleInputChange} />
-        <input type="email" name="email" placeholder="Email Address" className="input mt-4" onChange={handleInputChange} />
-        <textarea name="additionalInfo" placeholder="Additional Information" className="input mt-4" onChange={handleInputChange}></textarea>
-      </div>
-      
-      <div>
-        <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
-        <div className="bg-gray-100 p-4 rounded-lg">
-          {cart.map((item) => (
-            <div key={item.id} className="flex justify-between border-b py-2">
-              <span>{item.title} × {item.quantity}</span>
-              <span>Rs. {item.price.toFixed(2)}</span>
+    <div className="max-w-7xl mx-auto p-6">
+      <h2 className="text-3xl font-bold mb-8">Checkout</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* Billing Details */}
+        <div className="bg-white shadow-lg rounded-lg p-8">
+          <h3 className="text-2xl font-semibold mb-6">Billing Details</h3>
+          <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-gray-700 font-medium mb-2">First Name</label>
+              <input {...register("firstName", { required: "Required" })} className="input" />
+              {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName.message}</p>}
             </div>
-          ))}
-          <div className="flex justify-between font-bold text-lg mt-4">
-            <span>Total:</span>
-            <span>Rs. {totalPrice().toFixed(2)}</span>
+            <div>
+              <label className="block text-gray-700 font-medium mb-2">Last Name</label>
+              <input {...register("lastName", { required: "Required" })} className="input" />
+              {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-gray-700 font-medium mb-2">Company Name (Optional)</label>
+              <input {...register("company")} className="input" />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-gray-700 font-medium mb-2">Country / Region</label>
+              <select {...register("country", { required: "Required" })} className="input">
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+              </select>
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-gray-700 font-medium mb-2">Street Address</label>
+              <input {...register("address", { required: "Required" })} className="input" />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-medium mb-2">City</label>
+              <input {...register("city", { required: "Required" })} className="input" />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-medium mb-2">Province</label>
+              <input {...register("province", { required: "Required" })} className="input" />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-medium mb-2">ZIP Code</label>
+              <input {...register("zip", { required: "Required" })} className="input" />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-medium mb-2">Phone</label>
+              <input {...register("phone", { required: "Required" })} className="input" />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-gray-700 font-medium mb-2">Email Address</label>
+              <input type="email" {...register("email", { required: "Required" })} className="input" />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-gray-700 font-medium mb-2">Additional Information</label>
+              <textarea {...register("additionalInfo")} className="input"></textarea>
+            </div>
+          </form>
+        </div>
+
+        {/* Cart Summary & Payment */}
+        <div className="bg-gray-100 shadow-lg rounded-lg p-8">
+          <h3 className="text-2xl font-semibold mb-6">Your Order</h3>
+          <ul>
+            {cart.map((item) => (
+              <li key={item.id} className="flex justify-between items-center border-b py-4">
+                <div className="flex gap-4">
+                  <img src={item.productImage} alt={item.title} className="w-16 h-16 rounded-md" />
+                  <div>
+                    <p className="font-medium">{item.title}</p>
+                    <p className="text-gray-500">Qty: {item.quantity}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <p className="font-semibold">Rs. {item.price.toLocaleString()}</p>
+                  <button onClick={() => removeFromCart(item.id)} className="text-red-500">
+                    <FaTrash />
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <p className="text-gray-500 mt-4">Subtotal: Rs. {total.toLocaleString()}</p>
+          
+
+          <h3 className="text-xl font-semibold mt-6">Payment Method</h3>
+          <div className="mt-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="payment" value="bank_transfer" checked={selectedPayment === "bank_transfer"} 
+                     onChange={() => setSelectedPayment("bank_transfer")} />
+              <span>Direct Bank Transfer</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer mt-2">
+              <input type="radio" name="payment" value="cash" checked={selectedPayment === "cash"} 
+                     onChange={() => setSelectedPayment("cash")} />
+              <span>Cash on Delivery</span>
+            </label>
           </div>
+
+          <button className="w-full mt-6 bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
+            Place Order
+          </button>
         </div>
-        
-        <h2 className="text-xl font-bold mt-6">Payment Method</h2>
-        <div className="mt-2 space-y-2">
-          <label className="flex items-center space-x-2">
-            <input type="radio" name="payment" value="bank" checked={paymentMethod === "bank"} onChange={() => setPaymentMethod("bank")} />
-            <span>Direct Bank Transfer</span>
-          </label>
-          <label className="flex items-center space-x-2">
-            <input type="radio" name="payment" value="cod" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} />
-            <span>Cash On Delivery</span>
-          </label>
-        </div>
-        
-        <button onClick={handleOrderSubmit} className="mt-6 w-full bg-black text-white py-2 rounded-lg">Place Order</button>
       </div>
     </div>
   );
-};
-
-export default CheckoutPage;
-   
-        
-
-      
-   
+}
