@@ -20,7 +20,7 @@ export default function Banner() {
           </p>
           <div className="lg:px-4 lg:mt-5 md:visible lg:visible xl:visible invisible">
 
-          <button className="lg:px-9 lg:py-3  text-white bg-primary rounded-md hover:bg-yellow-800">
+          <button className="lg:px-9 lg:py-3  text-white bg-primary rounded-md hover:bg-yellow-500">
             Buy Now
           </button>
           </div>
